@@ -11,7 +11,7 @@ export default makeStyles(theme => ({
   profileImage: {
     padding: 5,
     border: `3px dotted ${theme.palette.primary.main}`,
-    borderRadius: '50%',
+  
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

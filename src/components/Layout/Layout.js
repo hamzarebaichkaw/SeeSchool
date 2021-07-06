@@ -73,7 +73,7 @@ import Homework from '../../pages/eleve/homework/Homework'
 import Notes from '../../pages/eleve/notes/Notes'
 import Notification from '../../pages/eleve/notification/Notification'
 import Support from '../../pages/eleve/support/Support'
-
+import Blogs from '../../pages/eleve/blogs/Blogs'
 // context
 import { useLayoutState } from '../../context/LayoutContext'
 import { ProductsProvider } from '../../context/ProductContext'
@@ -132,7 +132,7 @@ function Layout(props) {
                     <Route path="/app/notes" component={Notes} />
                     <Route path="/app/notification" component={Notification} />
                     <Route path="/app/support" component={Support} />
-
+                    <Route path="/app/blogs" component={Blogs} />
                     <Route path="/app/dashboard" component={Dashboard} />
                     <Route
                         path="/app/core/typography"

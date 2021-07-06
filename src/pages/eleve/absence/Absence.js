@@ -1,96 +1,178 @@
-import React, {useState} from "react";
-
+import React, { useState, useEffect } from "react";
+import { Grid } from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
 import useStyles from "./styles";
-import TableView from 'react-table-view';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 // components
 import Widget from "../../../components/Widget";
 import Table from "../../dashboard/components/Table/Table";
-import { Grid, Typography } from "@material-ui/core";
-import Dot from '../../../components/Dot/Dot';
-import { withStyles } from '@material-ui/core/styles';
-import {
-    ResponsiveContainer,
-    PieChart,
-    Pie,
-    Cell,
-  } from "recharts"; 
-import chartsData from '../../../pages/dashboard/mock';
+import { Form } from 'react-bootstrap';
 // data
-import mock from "../../../pages/dashboard/mock";
-import Donut from '../../../pages/profile/Components/DonutChart';
-
-
-export default function Absence() {
-  const DATA = [
-    { id: 0, make: 'Honda', model: 'NSX', year: '1997' },
-    { id: 1, make: 'Toyota', model: 'Supra', year: '1996' },
-    { id: 2, make: 'Nissan', model: '300ZX', year: '1998' },
-    { id: 0, make: 'Honda', model: 'NSX', year: '1997' },
-    { id: 1, make: 'Toyota', model: 'Supra', year: '1996' },
-    { id: 2, make: 'Nissan', model: '300ZX', year: '1998' }
-  ];
-  const styles = (theme) => ({
-    legendItemContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: 8,
-      paddingLeft: 10
-    },
-    detailsWrapper: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      paddingRight: 0,
-      paddingLeft: 0,
-      width: '100%',
-      bottom: 5,
-    },
-    legendItemsContainer: {
-      display: 'flex', 
-      alignItems: 'center', 
-      flexWrap: 'wrap'
-    }
-  });
-  const PieChartData = [
-    { name: "New", value: 400 ,color: "#536DFE" },
-    { name: "In Progress", value: 300 ,color: "#FFC35F" },
-    { name: "Completed", value: 300 ,color: "#3CD4A0" },
-    { name: "Cancel", value: 200 ,color: "#FF5C93" }
-  ];
+import { useTheme } from "@material-ui/styles";
+import mock from "../../dashboard/mock";
+import ReactApexChart from "react-apexcharts";
+import axios from "axios";
+const datatableData = [
   
+];
+const themeOptions = theme => {
+  return {
+    labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: "bottom"
+          }
+        }
+      }
+    ],
+    colors: [
+      theme.palette.primary.main,
+      theme.palette.secondary.main,
+      theme.palette.warning.main,
+      theme.palette.success.light,
+      theme.palette.info.main
+    ],
+    options: {
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ],
+      colors: [
+        theme.palette.primary.main,
+        theme.palette.secondary.main,
+        theme.palette.warning.main,
+        theme.palette.success.light,
+        theme.palette.info.main
+      ]
+    },
+    options2: {
+      dataLabels: {
+        enabled: false
+      },
+
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              show: false
+            }
+          }
+        }
+      ],
+      legend: {
+        position: "right",
+        offsetY: 0,
+        height: 230
+      },
+      colors: [
+        theme.palette.primary.main,
+        theme.palette.secondary.main,
+        theme.palette.warning.main,
+        theme.palette.success.light,
+        theme.palette.info.main
+      ]
+    },
+    options3: {
+      labels: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      theme: {
+        monochrome: {
+          enabled: true
+        }
+      },
+      colors: [
+        theme.palette.primary.main,
+        theme.palette.secondary.main,
+        theme.palette.warning.main,
+        theme.palette.success.light,
+        theme.palette.info.main
+      ],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    }
+  };
+};
+
+export default function Absences() {
  
-  
-  /* define the look of each column, OPTIONAL */
-  let COLUMNS = {
-    make: function(data) {
-      return <span>What an awesome year: {data.year}</span>
-    },
-    model: function(data) {
-      return <a>{data.model}</a>
-    },
-    year: function(data) {
-      return (
-        <p style={{textAlign: 'left', margin: '0 15px'}}>
-          {`Id: ${data.id}`}
-          <br />
-          {`Year: ${data.year}`}
-        </p>
-      )
-    }
-  }
+  const classes = useStyles();
+  const [CoursM, seCoursM] = useState([]);
+  const theme = useTheme();
+useEffect(function () {
+  const d= sessionStorage.getItem('user_id')
+  axios
+    // .get(`http://www.pointofsaleseedigitalaency.xyz/public/APIUser/Note/${d}`)
+    .get(`http://www.pointofsaleseedigitalaency.xyz/public/APIUser/Absences/1`)
+    .then(res => {
+      seCoursM(res.data )
+     console.log(res.data )
+    }, 2000)
 
+    .catch(() => {
+      console.log("ERROR")
+    });
+}, []);
   return (
-    <div>
-    <h1>Absences</h1>
-    <div style={{backgroundColor:'#E0E0E0'}}>
-      
-      <TableView data={DATA} columns={COLUMNS} />
-      <div>
-      
-       
-      </div>
-    </div>
-    </div>
-  )
+    <>
+      <Grid style={{backgroundColor:' ',}} container spacing={4}>
+        <Grid item xs={12}>
+          <MUIDataTable
+            title="Absences"
+            data={CoursM}
+            columns={["matiere", "N°de jours d'absences"]}
+            options={{
+              filterType: "checkbox"
+            }}
+          />
+        </Grid>
+        {/* <Grid item md={6} xs={12}> 
+        <Widget title={"Simple Pie"} noBodyPadding>
+            <ReactApexChart
+            options={ themeOptions(theme)}
+                series={CoursM.chart }
+              type="pie"
+              height="380"
+              stroke={""}
+            />
+          </Widget>
+          </Grid> */}
+      </Grid>
+    </>
+  );
 }
-

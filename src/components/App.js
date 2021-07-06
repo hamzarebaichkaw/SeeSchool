@@ -16,6 +16,7 @@ import Documentation from "./Documentation/Documentation";
 // pages
 import Error from "../pages/error/Error";
 import Login from "../pages/login/Login";
+import ProfileAdmin from "../pages/admin/Admin";
 import LandingPage from "../pages/landingPage/LandingPage";
 import Verify from "../pages/verify/Verify";
 import Reset from "../pages/reset/Reset";
@@ -58,6 +59,7 @@ export default function App() {
           <Route path="/documentation" component={Documentation} />
           <PrivateRoute path="/app" component={Layout} />
           <PublicRoute path="/login" component={Login} />
+          <PrivateRoute path="/admin" component={ProfileAdmin} />
           <MainRoute path="/home" component={LandingPage} />
           <PublicRoute path="/verify-email" exact component={Verify} />
           <PublicRoute path="/password-reset" exact component={Reset} />

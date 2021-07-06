@@ -162,6 +162,7 @@ export default function Charts(props) {
       })
     });
   };
+  console.log(themeOptions(theme))
 
   const reset = () => {
     setState({

@@ -9,17 +9,17 @@ import useStyles from "./styles";
 import { withStyles, useTheme } from '@material-ui/core/styles';
 import FolderIcon from '@material-ui/icons/Folder';
 // components
-import Widget from "../../../components/Widget";
+import Widget from "../../../components/Widget/Widget";
 // import Table from "../../dashboard/components/Table/Table";
 // data
 import mock from "../../dashboard/mock";
-import { Link,Button, Avatar } from "../../../components/Wrappers";
+import { Link,Button, Avatar } from "../../../components/Wrappers/Wrappers";
  
 import axios from "axios";
 import * as moment from 'moment'
  
 
-import { CircularProgress } from "../../../components/Wrappers";
+import { CircularProgress } from "../../../components/Wrappers/Wrappers";
 
    
 // const [mat, setmat] =  
@@ -27,7 +27,7 @@ import { CircularProgress } from "../../../components/Wrappers";
  
  
  
-export default function Cours() {
+export default function Inscription() {
   const classes = useStyles();
  
 
@@ -36,8 +36,8 @@ export default function Cours() {
   useEffect(function () {
     const d= sessionStorage.getItem('user_id')
     axios
-      // .get(`http://www.pointofsaleseedigitalaency.xyz/public/APIUser/Matiere/${d}`)
-      .get(`http://www.pointofsaleseedigitalaency.xyz/public/APIUser/Matiere/1`)
+    
+      .get(`http://www.pointofsaleseedigitalaency.xyz/public/APIUser/ClassesAdmin`)
       .then(res => {
         seCoursM(res.data.result)
         // console.log(res.data.result)
@@ -73,12 +73,8 @@ export default function Cours() {
 
   return (
 <div>
-   <h1>Cours et exercices</h1>
-   <p style={{ padding: '24px 0 0 '}}>
-           Work
-           Private
-           Social
-         </p>
+   <h1>Gestion d'inscription </h1>
+   
  <div style={{backgroundColor:'',}}>
          <br />
          <div style={{display:'flex', justifyContent:'space-between', }}>
@@ -88,15 +84,15 @@ CoursM.map(
 
   (m)=>( 
 
-       <button
-         onClick={()=>{reg(m.id)}}  
-        >
-          
-            <FolderIcon  style={{width:'100px', height:'100px'}}  />
-         {m.matieress }
-         
-         </button> 
-
+      
+  <Button
+  color="primary"
+  variant="contained"
+  className={classes.button}
+  onClick={()=>{reg(m.id)}} 
+>
+{m.matieress }
+</Button>
        )
 
        ) }
